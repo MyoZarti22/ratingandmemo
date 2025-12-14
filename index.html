@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy 5th Monthsary! ❤️</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Use Inter Font -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000;
+            min-height: 100vh;
+        }
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-10px); }
+            40%, 80% { transform: translateX(10px); }
+        }
+        
+        /* Mobile View */
+        #app-container {
+            width: 100%;
+            max-width: 420px; 
+            min-height: 100vh;
+            height: 100vh;
+        }
+
+        /* Desktop/PC View */
+        @media (min-width: 768px) {
+            body {
+                padding: 0;
+            }
+            #app-container {
+                max-width: 100%;
+                width: 75%;
+                height: auto;
+                min-height: 80vh; 
+                margin: 5vh auto;
+                border-radius: 2rem;
+            }
+            #lock-screen, #monthsary-page, #review-page, #results-page {
+                padding: 3rem 4rem;
+            }
+            /* Grid layout for 6 images (2 columns x 3 rows) */
+            .memory-grid {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body class="p-0 md:p-4 flex items-center justify-center">
+
+    <div id="app-container" class="bg-gray-900/50 backdrop-blur-3xl rounded-3xl shadow-2xl overflow-hidden relative transition-all duration-500 flex flex-col">
+
+        <div id="stage-container" class="flex-1 flex flex-col relative">
+            
+            <!-- 1. Lock Screen Stage -->
+            <div id="lock-screen" class="absolute inset-0 transition-opacity duration-500 flex flex-col justify-between p-8 text-white bg-cover bg-center" style="background-image: url('https://windowsxp-delta.vercel.app/IMG_0215.jpg');">
+                <div class="flex-1 flex flex-col items-center justify-center space-y-2">
+                    <p id="current-time" class="text-7xl font-light tracking-tight"></p>
+                    <p id="current-date" class="text-xl font-medium opacity-80"></p>
+                </div>
+
+                <div class="text-center mb-8">
+                    <p class="text-lg mb-4 opacity-90">Enter Passcode to Unlock the Surprise</p>
+                    <div id="passcode-dots" class="flex justify-center space-x-3 mb-8">
+                        <div class="w-4 h-4 rounded-full border-2 border-white/70 bg-black/40 dot-0"></div>
+                        <div class="w-4 h-4 rounded-full border-2 border-white/70 bg-black/40 dot-1"></div>
+                        <div class="w-4 h-4 rounded-full border-2 border-white/70 bg-black/40 dot-2"></div>
+                        <div class="w-4 h-4 rounded-full border-2 border-white/70 bg-black/40 dot-3"></div>
+                    </div>
+                    <p id="error-message" class="text-red-400 font-semibold opacity-0 transition-opacity duration-300 h-6"></p>
+
+                    <!-- Keypad -->
+                    <div class="grid grid-cols-3 gap-3 max-w-xs mx-auto">
+                        <template id="keypad-template">
+                            <button class="keypad-btn text-white text-3xl font-light w-16 h-16 rounded-full bg-white/20 hover:bg-white/30 transition shadow-lg active:scale-95">1</button>
+                        </template>
+                    </div>
+                </div>
+                
+                <div class="h-10">
+                    <button id="show-import-modal" class="text-sm font-medium text-gray-300 hover:text-white transition w-full">
+                        Import Shared Review
+                    </button>
+                </div> 
+
+                <p class="text-sm text-center">Hint! Our Friendship turn into RS day</p>
+            </div>
+
+            <!-- 2. Monthsary Page Stage -->
+            <div id="monthsary-page" class="absolute inset-0 p-6 pt-10 text-white opacity-0 pointer-events-none transition-opacity duration-500 overflow-y-auto bg-gray-900/80 backdrop-blur-xl">
+                <h1 class="text-4xl font-extrabold text-center text-pink-300 mb-2">5 Months of Us!</h1>
+                <p class="text-center text-xl font-light mb-8 text-gray-200">Our journey started with a single step, and now look how far we've come! Happy Monthsary, my love.</p>
+
+                <h2 class="text-2xl font-semibold mb-4 border-b border-pink-400/50 pb-2">Our Best Memories ❤️</h2>
+                
+                <!-- 6 Images Grid -->
+                <div class="space-y-6 memory-grid"> 
+                    
+                    <!-- Image 1 -->
+                    <div class="flex flex-col md:flex-row items-center bg-white/10 p-4 rounded-xl shadow-lg">
+                        <img src="first.jpg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/9d174d/ffffff?text=Date+1'" alt="Memory 1" class="w-full md:w-32 md:h-32 object-cover rounded-lg mb-3 md:mb-0 md:mr-4">
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-bold text-pink-300">The First Date </h3>
+                            <p class="text-gray-100 text-sm mt-1">Where it all began. I was so nervous but you made me smile instantly. Ak mhr sa twae kya p aku lo hti phit lar mal bal thu ka htin mhr ll d kg ma ly nae</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 2 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center bg-white/10 p-4 rounded-xl shadow-lg">
+                        <img src="2nd.jpg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/9d174d/ffffff?text=Date+2'" alt="Memory 2" class="w-full md:w-32 md:h-32 object-cover rounded-lg mb-3 md:mb-0 md:ml-4">
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-bold text-pink-300">Our First Staycation & Birthday With My Lovely One</h3>
+                            <p class="text-gray-100 text-sm mt-1">That time we tried that new things and couldn't stop laughing. I love that we can be weird together. Birthday mhr bay mhr shi ny pay lo kyay zuu par acx ya sone ly yay.Nout bd twy ll tu" shi pay par omm and as soon as u r bd ll lar tot mhr so tot 2 yout tu" shi chin par ty tl ak kya ll</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 3 -->
+                    <div class="flex flex-col md:flex-row items-center bg-white/10 p-4 rounded-xl shadow-lg">
+                        <img src="3rd.jpg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/9d174d/ffffff?text=Date+3'" alt="Memory 3" class="w-full md:w-32 md:h-32 object-cover rounded-lg mb-3 md:mb-0 md:mr-4">
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-bold text-pink-300">Our First PC games date</h3>
+                            <p class="text-gray-100 text-sm mt-1">That is one of our bucket list date so its make me alot fun play a games and when check around you are beside me is warm my heart. Nout khr twy mhr ll ak lo memorable date lay twy loke chin par thy tl</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 4 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center bg-white/10 p-4 rounded-xl shadow-lg">
+                        <img src="4th.jpg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/9d174d/ffffff?text=Date+4'" alt="Memory 4" class="w-full md:w-32 md:h-32 object-cover rounded-lg mb-3 md:mb-0 md:ml-4">
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-bold text-pink-300">Our Little Adventure</h3>
+                            <p class="text-gray-100 text-sm mt-1">Unexpexted things happened to us after that date and unfortunately we took a break of our RS. "In bad there's good"  after that situation things our feelings, connections way more stronger than before and love each other like there's no tomorrow.</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 5 -->
+                    <div class="flex flex-col md:flex-row items-center bg-white/10 p-4 rounded-xl shadow-lg">
+                        <img src="5th.jpg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/9d174d/ffffff?text=Date+5'" alt="Memory 5" class="w-full md:w-32 md:h-32 object-cover rounded-lg mb-3 md:mb-0 md:mr-4">
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-bold text-pink-300">Our Reunited</h3>
+                            <p class="text-gray-100 text-sm mt-1">The specific moment I realized I was falling for you so bad. That's our first date after the break you met my family for first time. Then that night we talk alot about us how we can't let go each other talks about how we loved such a great time of my life.</p>
+                        </div>
+                    </div>
+
+                    <!-- Image 6 -->
+                    <div class="flex flex-col md:flex-row-reverse items-center bg-white/10 p-4 rounded-xl shadow-lg">
+                        <img src="6th.jpg" onerror="this.onerror=null;this.src='https://placehold.co/128x128/9d174d/ffffff?text=Date+6'" alt="Memory 6" class="w-full md:w-32 md:h-32 object-cover rounded-lg mb-3 md:mb-0 md:ml-4">
+                        <div class="flex-1 text-center md:text-left">
+                            <h3 class="font-bold text-pink-300">Us Right Now</h3>
+                            <p class="text-gray-100 text-sm mt-1">Haircut tr ko like wait pay mal pyw p thu ko pyn wait like ya tae day lay pop. Ak day ka ll ator ly pyor khae ya par tl 2 yout skr twy ll akyr g pyw p 🙄 akyr g pop ly nw.Btw Now 5 months in and I'm happier than ever. Here's to many more! Happy 5th monthsery par ma yay hope u enjoy this web. lub u xoxo much par🩷 mwh mwh😚 road to 6th months par and New years still US nae pop ly  </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="text-center pt-8 pb-4">
+                    <button id="next-to-review" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full transition-colors shadow-xl">
+                        Continue to Next Step
+                    </button>
+                </div>
+            </div>
+
+            <!-- 3. Review Page Stage -->
+            <div id="review-page" class="absolute inset-0 p-6 pt-10 text-white opacity-0 pointer-events-none transition-opacity duration-500 overflow-y-auto bg-gray-900/80 backdrop-blur-xl">
+                <h1 class="text-4xl font-extrabold text-center text-yellow-300 mb-2">My Service Review!</h1>
+                <p class="text-center text-lg font-light mb-8 text-gray-200">Now for the important part: Your honest feedback on my baby boyfriend service. 😉</p>
+
+                <form id="review-form" class="space-y-6 max-w-lg mx-auto">
+                    <!-- Question 1: Attentiveness -->
+                    <div>
+                        <label class="block text-lg font-medium mb-2">1. Attentiveness & Listening Skills (Rate 1-5)</label>
+                        <div class="flex justify-center space-x-2 p-3 bg-white/10 rounded-xl">
+                            <input type="range" min="1" max="5" value="5" class="w-full accent-yellow-400" id="rating-attentiveness">
+                            <span id="attentiveness-value" class="w-8 text-right font-bold text-yellow-300">5</span>
+                        </div>
+                    </div>
+
+                    <!-- Question 2: Affection & Cuddle Quality -->
+                    <div>
+                        <label class="block text-lg font-medium mb-2">2. Freak & Cuddle Quality (Rate 1-5)</label>
+                        <div class="flex justify-center space-x-2 p-3 bg-white/10 rounded-xl">
+                            <input type="range" min="1" max="5" value="5" class="w-full accent-yellow-400" id="rating-affection">
+                            <span id="affection-value" class="w-8 text-right font-bold text-yellow-300">5</span>
+                        </div>
+                    </div>
+
+                    <!-- Question 3: Date Planning & Creativity -->
+                    <div>
+                        <label class="block text-lg font-medium mb-2">3. Princess Treatment (Rate 1-5)</label>
+                        <div class="flex justify-center space-x-2 p-3 bg-white/10 rounded-xl">
+                            <input type="range" min="1" max="5" value="5" class="w-full accent-yellow-400" id="rating-planning">
+                            <span id="planning-value" class="w-8 text-right font-bold text-yellow-300">5</span>
+                        </div>
+                    </div>
+
+                    <!-- Open Feedback Text -->
+                    <div>
+                        <label for="feedback-text" class="block text-lg font-medium mb-2">General Feedback / Things to Improve</label>
+                        <textarea id="feedback-text" rows="4" class="w-full p-3 rounded-xl bg-white/10 text-white border-none focus:ring-yellow-400 focus:ring-2" placeholder="Tell me what you think..."></textarea>
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <button type="submit" class="bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-8 rounded-full transition-colors shadow-xl">
+                            Submit My Review & Generate Code
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- 4. Results Page Stage -->
+            <div id="results-page" class="absolute inset-0 p-6 pt-10 text-white opacity-0 pointer-events-none transition-opacity duration-500 overflow-y-auto bg-gray-900/80 backdrop-blur-xl">
+                <h1 class="text-4xl font-extrabold text-center text-green-300 mb-2">Review Ready!</h1>
+                <p class="text-center text-lg font-light mb-8 text-gray-200">Share the generated code below with your partner to let them see the results.</p>
+
+                <div class="bg-white/10 p-6 rounded-2xl shadow-xl space-y-4 max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-semibold mb-4 text-green-300 border-b border-green-300/50 pb-2">Scorecard:</h2>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="p-3 bg-white/10 rounded-lg">
+                            <p class="font-medium text-sm text-gray-400">Attentiveness & Listening:</p>
+                            <div class="flex items-end justify-center pt-1 space-x-1">
+                                <span id="res-attentiveness" class="text-4xl font-bold text-yellow-300">0</span>
+                                <span class="text-xl text-yellow-300">/ 5</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white/10 rounded-lg">
+                            <p class="font-medium text-sm text-gray-400">Freak & Cuddle Quality:</p>
+                            <div class="flex items-end justify-center pt-1 space-x-1">
+                                <span id="res-affection" class="text-4xl font-bold text-yellow-300">0</span>
+                                <span class="text-xl text-yellow-300">/ 5</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-white/10 rounded-lg">
+                            <p class="font-medium text-sm text-gray-400">Princess Treatment:</p>
+                            <div class="flex items-end justify-center pt-1 space-x-1">
+                                <span id="res-planning" class="text-4xl font-bold text-yellow-300">0</span>
+                                <span class="text-xl text-yellow-300">/ 5</span>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="pt-4 border-t border-white/20">
+                        <h3 class="text-xl font-semibold mb-2 text-green-300">General Feedback:</h3>
+                        <p id="res-feedback" class="whitespace-pre-wrap italic text-gray-200 bg-white/5 p-3 rounded-lg">No review submitted yet. Waiting for local data.</p>
+                    </div>
+                </div>
+
+                <div class="text-center pt-8 max-w-2xl mx-auto">
+                    <h3 class="text-xl font-semibold mb-3">Share Your Results</h3>
+                    <textarea id="share-code-output" rows="3" readonly class="w-full p-3 rounded-lg bg-gray-700 text-gray-100 text-sm break-all resize-none mb-3" placeholder="Generated code will appear here..."></textarea>
+                    
+                    <button id="copy-share-code" class="bg-gray-700 hover:bg-gray-600 text-white font-bold py-2 px-6 rounded-full transition-colors">
+                        Copy Code
+                    </button>
+                    <p id="copy-status" class="text-green-400 mt-2 opacity-0 transition-opacity duration-300"></p>
+                </div>
+            </div>
+
+            <!-- Import Modal -->
+            <div id="import-modal" class="hidden absolute inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-6">
+                <div class="bg-gray-800 p-6 rounded-xl shadow-2xl w-full max-w-sm text-white">
+                    <h2 class="text-2xl font-bold mb-4 text-pink-300">Import Review</h2>
+                    <p class="mb-4 text-sm text-gray-300">Paste the sharing code provided by your partner here:</p>
+                    <input type="text" id="import-code-input" class="w-full p-3 rounded-lg bg-gray-700 text-white border-none focus:ring-pink-500 focus:ring-2 mb-4" placeholder="Paste Base64 code...">
+                    
+                    <div class="flex justify-between space-x-3">
+                        <button id="cancel-import" class="flex-1 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 rounded-full transition-colors">
+                            Cancel
+                        </button>
+                        <button id="execute-import" class="flex-1 bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 rounded-full transition-colors">
+                            View Results
+                        </button>
+                    </div>
+                    <p id="import-error" class="text-red-400 mt-3 hidden text-sm">Invalid code format.</p>
+                </div>
+            </div>
+
+            <div id="loading-message" class="absolute inset-0 flex flex-col items-center justify-center bg-gray-900/80 backdrop-blur-md text-white text-xl font-semibold z-50">
+                <div id="loading-spinner" class="animate-pulse rounded-full h-12 w-12 border-b-2 border-pink-400 mb-4"></div>
+                <p>Loading application...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const REVIEW_KEY = 'monthsaryReviewData';
+        window.latestReview = null;
+
+        // --- UPDATED UTF-8 SAFE BASE64 FUNCTIONS ---
+        // Converts a string to a URL-safe Base64 string (UTF-8 safe)
+        const encodeBase64 = (str) => {
+            try {
+                const uint8Array = new TextEncoder().encode(str);
+                let binaryString = '';
+                for (let i = 0; i < uint8Array.length; i++) {
+                    binaryString += String.fromCharCode(uint8Array[i]);
+                }
+                // Standard Base64 encoding + URL-safe replacements
+                return btoa(binaryString)
+                    .replace(/\+/g, '-') // Replace + with -
+                    .replace(/\//g, '_') // Replace / with _
+                    .replace(/=+$/, ''); // Remove padding =
+            } catch (e) {
+                console.error("Encoding error:", e);
+                return null;
+            }
+        };
+
+        // Decodes a URL-safe Base64 string back to a UTF-8 string
+        const decodeBase64 = (code) => {
+            try {
+                // 1. Restore URL-safe characters
+                const safeCode = code.replace(/-/g, '+').replace(/_/g, '/');
+                // 2. Restore padding if necessary
+                const paddedCode = safeCode + '==='.slice((safeCode.length * 3) % 4);
+                // 3. Decode Base64 to binary string
+                const binaryString = atob(paddedCode);
+                
+                // 4. Convert binary string to Uint8Array for UTF-8 decoding
+                const uint8Array = new Uint8Array(binaryString.length);
+                for (let i = 0; i < binaryString.length; i++) {
+                    uint8Array[i] = binaryString.charCodeAt(i);
+                }
+                
+                // 5. Decode Uint8Array to UTF-8 string
+                return new TextDecoder('utf-8').decode(uint8Array);
+
+            } catch (e) {
+                console.error("Decoding error:", e);
+                return null;
+            }
+        };
+        // ------------------------------------------
+
+        window.saveReviewDataLocal = (data) => {
+            try {
+                // We use JSON.stringify to ensure the data structure is preserved
+                localStorage.setItem(REVIEW_KEY, JSON.stringify(data));
+                window.latestReview = data;
+                return true;
+            } catch (e) {
+                console.error("Error saving to local storage:", e);
+                // Custom, non-alert message box could be implemented here
+                return false;
+            }
+        };
+
+        window.loadReviewDataLocal = () => {
+            try {
+                const storedData = localStorage.getItem(REVIEW_KEY);
+                if (storedData) {
+                    window.latestReview = JSON.parse(storedData);
+                }
+            } catch (e) {
+                console.error("Error loading from local storage:", e);
+            }
+        };
+
+        window.generateShareCode = () => {
+            if (!window.latestReview) return null;
+            const jsonString = JSON.stringify(window.latestReview);
+            return encodeBase64(jsonString);
+        };
+
+        window.parseShareCode = (encodedData) => {
+            const jsonString = decodeBase64(encodedData);
+            if (jsonString) {
+                try {
+                    return JSON.parse(jsonString);
+                } catch (e) {
+                    return null;
+                }
+            }
+            return null;
+        };
+        
+        let currentPage = 'lock';
+        const CORRECT_PASSWORD = '2207';
+        let currentInput = '';
+        const maxPasswordLength = 4;
+        const screens = {
+            'lock': document.getElementById('lock-screen'),
+            'monthsary': document.getElementById('monthsary-page'),
+            'review': document.getElementById('review-page'),
+            'results': document.getElementById('results-page')
+        };
+
+        const updateTime = () => {
+            const now = new Date();
+            const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+            const dateOptions = { weekday: 'long', month: 'long', day: 'numeric' };
+
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('en-US', timeOptions).replace('AM', '').replace('PM', '');
+            document.getElementById('current-date').textContent = now.toLocaleDateString('en-US', dateOptions);
+        };
+
+        const updateScreen = (newScreen) => {
+            currentPage = newScreen;
+            document.getElementById('loading-message').style.opacity = '0';
+            document.getElementById('loading-message').style.pointerEvents = 'none';
+
+            for (const [key, screen] of Object.entries(screens)) {
+                if (key === newScreen) {
+                    screen.style.opacity = '1';
+                    screen.style.pointerEvents = 'auto';
+                    screen.scrollTop = 0;
+                } else {
+                    screen.style.opacity = '0';
+                    screen.style.pointerEvents = 'none';
+                }
+            }
+            
+            if (newScreen === 'results') {
+                 window.updateResultsDisplay();
+            }
+        };
+
+        const updateDots = () => {
+            const dotsContainer = document.getElementById('passcode-dots');
+            for (let i = 0; i < maxPasswordLength; i++) {
+                const dot = dotsContainer.querySelector(`.dot-${i}`);
+                if (dot) {
+                    dot.style.backgroundColor = i < currentInput.length ? 'white' : 'rgba(0,0,0,0.4)';
+                    dot.style.borderColor = i < currentInput.length ? 'white' : 'rgba(255,255,255,0.7)';
+                }
+            }
+        };
+
+        const handleKeypadInput = (key) => {
+            document.getElementById('error-message').style.opacity = '0';
+            if (currentPage !== 'lock') return;
+
+            if (key === 'delete') {
+                currentInput = currentInput.slice(0, -1);
+            } else if (currentInput.length < maxPasswordLength) {
+                currentInput += key;
+            }
+
+            updateDots();
+
+            if (currentInput.length === maxPasswordLength) {
+                checkPassword();
+            }
+        };
+
+        const checkPassword = () => {
+            if (currentInput === CORRECT_PASSWORD) {
+                updateScreen('monthsary');
+                currentInput = '';
+            } else {
+                const errorElement = document.getElementById('error-message');
+                errorElement.textContent = 'Incorrect Passcode';
+                errorElement.style.opacity = '1';
+
+                const dotsContainer = document.getElementById('passcode-dots');
+                dotsContainer.style.animation = 'shake 0.5s';
+                setTimeout(() => {
+                    dotsContainer.style.animation = '';
+                    currentInput = '';
+                    updateDots();
+                }, 500);
+            }
+        };
+
+        const keypadContainer = screens.lock.querySelector('.grid-cols-3');
+        const keypadTemplate = document.getElementById('keypad-template');
+        const keys = [
+            { label: '1', key: '1' }, { label: '2', key: '2' }, { label: '3', key: '3' },
+            { label: '4', key: '4' }, { label: '5', key: '5' }, { label: '6', key: '6' },
+            { label: '7', 'key': '7' }, { label: '8', key: '8' }, { label: '9', key: '9' },
+            { label: '', key: 'call' }, { label: '0', key: '0' }, { label: '⌫', key: 'delete' }
+        ];
+
+        keys.forEach(item => {
+            const button = keypadTemplate.content.cloneNode(true).querySelector('.keypad-btn');
+            button.textContent = item.label;
+            if (item.key === 'call' || item.key === 'delete') {
+                button.classList.remove('text-3xl');
+                button.classList.add('text-xl', 'font-semibold', 'bg-transparent', 'hover:bg-white/10');
+            }
+            if (item.key === 'call') {
+                 button.classList.add('opacity-0', 'pointer-events-none'); 
+            }
+
+            button.addEventListener('click', () => handleKeypadInput(item.key));
+            keypadContainer.appendChild(button);
+        });
+
+        const ratingInputs = [
+            { id: 'rating-attentiveness', valueId: 'attentiveness-value' },
+            { id: 'rating-affection', valueId: 'affection-value' },
+            { id: 'rating-planning', valueId: 'planning-value' }
+        ];
+
+        ratingInputs.forEach(item => {
+            const input = document.getElementById(item.id);
+            const valueSpan = document.getElementById(item.valueId);
+            valueSpan.textContent = input.value;
+            input.addEventListener('input', (e) => {
+                valueSpan.textContent = e.target.value;
+            });
+        });
+
+        document.getElementById('review-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const reviewData = {
+                attentiveness: parseInt(document.getElementById('rating-attentiveness').value),
+                affection: parseInt(document.getElementById('rating-affection').value),
+                planning: parseInt(document.getElementById('rating-planning').value),
+                feedback: document.getElementById('feedback-text').value.trim() || 'No general feedback provided.'
+            };
+
+            window.saveReviewDataLocal(reviewData);
+
+            const shareCode = window.generateShareCode();
+            document.getElementById('share-code-output').value = shareCode || 'Error generating code.';
+
+            updateScreen('results');
+        });
+
+        document.getElementById('next-to-review').addEventListener('click', () => {
+            updateScreen('review');
+        });
+
+        window.updateResultsDisplay = () => {
+            const review = window.latestReview;
+
+            if (review) {
+                document.getElementById('res-attentiveness').textContent = review.attentiveness;
+                document.getElementById('res-affection').textContent = review.affection;
+                document.getElementById('res-planning').textContent = review.planning;
+                document.getElementById('res-feedback').textContent = review.feedback;
+            } else {
+                document.getElementById('res-attentiveness').textContent = '0';
+                document.getElementById('res-affection').textContent = '0';
+                document.getElementById('res-planning').textContent = '0';
+                document.getElementById('res-feedback').textContent = 'No review data loaded yet.';
+                document.getElementById('share-code-output').value = 'Submit a review first to generate a share code.';
+            }
+        };
+
+        const importModal = document.getElementById('import-modal');
+        const importInput = document.getElementById('import-code-input');
+        const importError = document.getElementById('import-error');
+
+        document.getElementById('show-import-modal').addEventListener('click', () => {
+            importModal.classList.remove('hidden');
+        });
+
+        document.getElementById('cancel-import').addEventListener('click', () => {
+            importModal.classList.add('hidden');
+            importInput.value = '';
+            importError.classList.add('hidden');
+        });
+
+        document.getElementById('execute-import').addEventListener('click', () => {
+            const code = importInput.value.trim();
+            const importedData = window.parseShareCode(code);
+
+            if (importedData && importedData.attentiveness !== undefined) { // Check for a key that should always be present
+                window.latestReview = importedData;
+                window.saveReviewDataLocal(importedData);
+                importModal.classList.add('hidden');
+                updateScreen('results');
+            } else {
+                importError.classList.remove('hidden');
+            }
+        });
+
+        document.getElementById('copy-share-code').addEventListener('click', () => {
+            const output = document.getElementById('share-code-output');
+            output.select();
+            try {
+                // Use document.execCommand('copy') as navigator.clipboard.writeText() is restricted in iframes
+                document.execCommand('copy');
+                const status = document.getElementById('copy-status');
+                status.textContent = 'Copied to clipboard!';
+                status.style.opacity = '1';
+                setTimeout(() => {
+                    status.style.opacity = '0';
+                }, 2000);
+            } catch (err) {
+                console.error('Could not copy text: ', err);
+            }
+        });
+
+        window.onload = () => {
+            updateTime();
+            setInterval(updateTime, 1000);
+            window.loadReviewDataLocal();
+            updateScreen('lock');
+        };
+    </script>
+</body>
+</html>
