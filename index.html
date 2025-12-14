@@ -298,47 +298,45 @@
         // --- UPDATED UTF-8 SAFE BASE64 FUNCTIONS ---
         // Converts a string to a URL-safe Base64 string (UTF-8 safe)
         const encodeBase64 = (str) => {
-            try {
-                const uint8Array = new TextEncoder().encode(str);
-                let binaryString = '';
-                for (let i = 0; i < uint8Array.length; i++) {
-                    binaryString += String.fromCharCode(uint8Array[i]);
-                }
-                // Standard Base64 encoding + URL-safe replacements
-                return btoa(binaryString)
-                    .replace(/\+/g, '-') // Replace + with -
-                    .replace(/\//g, '_') // Replace / with _
-                    .replace(/=+$/, ''); // Remove padding =
-            } catch (e) {
-                console.error("Encoding error:", e);
-                return null;
-            }
-        };
+    try {
+        const uint8Array = new TextEncoder().encode(str);
+        let binaryString = '';
+        for (let i = 0; i < uint8Array.length; i++) {
+            binaryString += String.fromCharCode(uint8Array[i]);
+        }
+        
+        // 🚨 CHANGE: Returns standard Base64 string (may contain +, /, and = padding)
+        return btoa(binaryString);
+
+    } catch (e) {
+        console.error("Encoding error:", e);
+        return null;
+    }
+};
 
         // Decodes a URL-safe Base64 string back to a UTF-8 string
         const decodeBase64 = (code) => {
-            try {
-                // 1. Restore URL-safe characters
-                const safeCode = code.replace(/-/g, '+').replace(/_/g, '/');
-                // 2. Restore padding if necessary
-                const paddedCode = safeCode + '==='.slice((safeCode.length * 3) % 4);
-                // 3. Decode Base64 to binary string
-                const binaryString = atob(paddedCode);
-                
-                // 4. Convert binary string to Uint8Array for UTF-8 decoding
-                const uint8Array = new Uint8Array(binaryString.length);
-                for (let i = 0; i < binaryString.length; i++) {
-                    uint8Array[i] = binaryString.charCodeAt(i);
-                }
-                
-                // 5. Decode Uint8Array to UTF-8 string
-                return new TextDecoder('utf-8').decode(uint8Array);
+    try {
+        // 🚨 CHANGE: Removed URL-safe character restoration (code.replace)
+        // 🚨 CHANGE: Removed padding restoration logic
 
-            } catch (e) {
-                console.error("Decoding error:", e);
-                return null;
-            }
-        };
+        // 1. Decode standard Base64 to binary string
+        const binaryString = atob(code);
+        
+        // 2. Convert binary string to Uint8Array for UTF-8 decoding
+        const uint8Array = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+            uint8Array[i] = binaryString.charCodeAt(i);
+        }
+        
+        // 3. Decode Uint8Array to UTF-8 string
+        return new TextDecoder('utf-8').decode(uint8Array);
+
+    } catch (e) {
+        console.error("Decoding error:", e);
+        return null;
+    }
+};
         // ------------------------------------------
 
         window.saveReviewDataLocal = (data) => {
